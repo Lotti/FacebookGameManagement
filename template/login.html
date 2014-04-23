@@ -1,0 +1,9 @@
+<div id="login" class="container text-center" ng-controller="loginCtrl">
+	<input type="text" ng-model="appId" placeholder="FB App ID"> 
+	&nbsp;&nbsp;&nbsp;
+	<input type="text" ng-model="appSecret" placeholder="FB App Secret">
+	<div id="login-buttons">
+		<a ng-click="login()" class="btn btn-primary"><span class="glyphicon glyphicon-play"></span> Login</a>
+	</div>
+	<div class="message">{{message}}</div>
+</div>
