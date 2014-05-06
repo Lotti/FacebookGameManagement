@@ -19,7 +19,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr ng-repeat="a in achievements">
+			<tr ng-repeat="a in achievements | orderBy:'url'">
 				<td>
                     <a href="{{a.url}}" target="_blank">{{a.id}}</a>
                     <br />
