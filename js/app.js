@@ -5,8 +5,7 @@
 var app = angular.module('FBGM', [
 	'ngRoute',
 	'ngCookies',
-	'appControllers',
-	'ezfb'
+	'appControllers'
 ]);
 
 app.config(['$routeProvider',

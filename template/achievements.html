@@ -1,9 +1,11 @@
 <div class="container text-center" ng-controller="loginCtrl">
-	FB App Id: {{appId}}
-	<br>
-	FB App Secret: {{appSecret}}
+    <div id="fbDetails" class="block">
+        FB App Id: <b>{{appId}}</b>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        FB Token: <b>{{appToken}}</b>
+    </div>
 
-	<table id="achievementsTable">
+	<table id="achievementsTable" class="block">
 		<thead>
 			<tr>
 				<th>id</th>
@@ -13,17 +15,23 @@
 				<th>points</th>
 				<th>order</th>
 				<th>updated</th>
+                <th></th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr ng-repeat="a in achievements">
-				<td><a href="{{a.url}}" target="_blank">{{a.id}}</a></td>
+				<td>
+                    <a href="{{a.url}}" target="_blank">{{a.id}}</a>
+                    <br />
+                    <a href ng-click="refreshAchievement(a.url,a.context.display_order);"><span class="glyphicon glyphicon-refresh"></span></a>
+                </td>
 				<td><a href="{{a.image[0].url}}" target="_blank"><img class="achievement-image" src="{{a.image[0].url}}"></a></td>
 				<td>{{a.title}}</td>
 				<td>{{a.description}}</td>
 				<td>{{a.data.points}}</td>
 				<td>{{a.context.display_order}}</td>
 				<td>{{a.updated_time}}</td>
+                <td><a href ng-click="deleteAchievement(a.url);"><span class="glyphicon glyphicon-remove"></span></a></td>
 			</tr>
 			<tr>
 				<td>Total Achievements</td>
@@ -31,7 +39,7 @@
 				<td></td>
 				<td>Total points</td>
 				<td>{{totalPoints()}}</td>
-				<td colspan="2"></td>
+				<td colspan="3"></td>
 			</tr>
 		</tbody>
 		<tfoot>
@@ -43,14 +51,41 @@
 				<th>points</th>
 				<th>order</th>
 				<th>updated</th>
+                <th></th>
 			</tr>
 		</tfoot>
 	</table>
+    
+    <table id="achievementsInput" class="block">
+        <thead>
+            <tr>
+                <th><a href ng-click="nrows.push({url:'',order:''});"><span class="glyphicon glyphicon-plus"></span></a></th>
+                <th>Achievement Page url</th>
+                <th>Display Order</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="n in nrows track by $index">
+                <td>{{$index+1}}</td>
+                <td><input type="text" placeholder="Achievement Page Url" class="large" ng-model="nrows[$index].url"></td>
+                <td><input type="text" placeholder="Display Order" ng-model="nrows[$index].order"></td>
+                <td>
+                    <a href="https://developers.facebook.com/tools/debug/og/object?q={{encodeuricomponent(nrows[$index].url)}}" title="debug" target="_blank"><span class="glyphicon glyphicon-wrench"></span></a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href ng-click="submitAchievement(nrows[$index].url,nrows[$index].order,$index);" title="send"><span class="glyphicon glyphicon-send"></span></a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href ng-click="nrows.splice($index, 1);"><span class="glyphicon glyphicon-remove" title="remove"></span></a></td>
+            </tr>
+        </tbody>
+    </table>
 	
 	
-	<br>
-	<a href="#/achievements/{{fbAppId}}" class="btn btn-primary"><span class="glyphicon glyphicon-star"></span> Achievements</a>
-	<a ng-click="resetScores()" class="btn btn-danger"><span class="glyphicon glyphicon-tower"></span> Reset Scores</a>
-	
+    <div class="block">
+        <a href="#/" class="btn btn-primary"><span class="glyphicon glyphicon-chevron-left"></span> Back</a>
+        <a href="#/achievements/{{appId}}/{{appToken}}" class="btn btn-primary"><span class="glyphicon glyphicon-star"></span> Achievements</a>
+        <a href ng-click="resetScores()" class="btn btn-danger"><span class="glyphicon glyphicon-tower"></span> Reset Scores</a>
+	</div>
+    
 	<div class="message">{{message}}</div>	
 </div>
