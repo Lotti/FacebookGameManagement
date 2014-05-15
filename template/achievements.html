@@ -24,6 +24,9 @@
                     <a href="{{a.url}}" target="_blank">{{a.id}}</a>
                     <br />
                     <a href ng-click="refreshAchievement(a.url,a.context.display_order);"><span class="glyphicon glyphicon-refresh"></span></a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href="https://developers.facebook.com/tools/debug/og/object?q={{encodeuricomponent(a.url)}}" title="debug" target="_blank"><span class="glyphicon glyphicon-wrench"></span></a>
+ 
                 </td>
 				<td><a href="{{a.image[0].url}}" target="_blank"><img class="achievement-image" src="{{a.image[0].url}}"></a></td>
 				<td>{{a.title}}</td>
